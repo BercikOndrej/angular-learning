@@ -1,0 +1,41 @@
+<div class="rounded-2xl bg-gray-100 overflow-clip">
+
+  <div class="bg-purple-500 p-4">
+    <img class="rounded-full w-24 h-24 mx-auto my-2" src="assets/profile.webp" alt="avatar">
+    
+    <div class="font-bold m-auto items-center justify-center text-center">
+      {{ user().name }}
+      <div class="text-purple-200 font-semibold">
+        {{ user().username }}
+      </div>
+    </div>
+  </div>
+
+  <div class="p-4">
+
+    <div class="grid grid-cols-2 gap-y-4 mt-4">
+      <div>
+        <p class="font-semibold">Email</p>
+        <p>{{ user().email }}</p>
+      </div>
+      <div>
+        <p class="font-semibold">Phone</p>
+        <p>{{ user().phone }}</p>
+      </div>
+      <div>
+        <p class="font-semibold">Website</p>
+        <p>{{ user().website }}</p>
+      </div>
+      <div>
+        <p class="font-semibold">Company</p>
+        <p>{{ user().company.name }}</p>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-4">
+      <button class="bg-red-500 hover:bg-red-600" (click)="deleteUser()">Delete</button>
+      <button (click)="selectUser()">Select</button>
+    </div>
+  </div>
+  
+</div>
