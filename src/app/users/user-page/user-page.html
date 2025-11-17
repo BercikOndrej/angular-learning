@@ -1,2 +1,3 @@
 <h1>User Page</h1>
+<user-form [selectedUser]="selected()" (updateEvent)="updateUser($event)" (createEvent)="createUser($event)"/>
 <user-list [users]="users()" (selectUserEvent)="selectUser($event)" (deleteUserEvent)="deleteUser($event)" />

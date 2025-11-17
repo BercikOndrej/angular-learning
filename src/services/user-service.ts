@@ -28,7 +28,9 @@ export class UserService {
   }
   
   updateUser(id: number, user: Partial<User>) {
-
+    return this.http.put<User>(`${this.url}/${id}`, user). pipe(
+      catchError(error => this.handleError(error))
+    )
   } 
   
   deleteUser(id: number) { 

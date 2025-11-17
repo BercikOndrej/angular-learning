@@ -1,0 +1,17 @@
+<form 
+  [formGroup]="userProfile"
+  (ngSubmit)="onSubmit()"
+  class="p-4 flex flex-col gap-2">
+  <input type="text" placeholder="Name" formControlName="name">
+  <input type="text" placeholder="Username" formControlName="username">
+  <input type="email" placeholder="Email" formControlName="email">
+  <input type="text" placeholder="Phone" formControlName="phone">
+  <input type="text" placeholder="Website" formControlName="website">
+  <div formGroupName="company" class="w-full">
+    <input type="text" placeholder="Company name" formControlName="name" class="w-full">
+  </div>
+  <button 
+    type="submit"
+    [disabled]="!userProfile.valid"
+    class="w-max ml-auto disabled:bg-gray-300 disabled:text-gray-900 disabled:cursor-default">Submit</button>
+</form>
