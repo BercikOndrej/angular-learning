@@ -1,0 +1,7 @@
+<h2 class="my-4 text-xl font-bold">User list</h2>
+
+<ul>
+  @for (user of users(); track user.id) {
+    <p>{{ user.name }}</p>
+  }
+</ul>
