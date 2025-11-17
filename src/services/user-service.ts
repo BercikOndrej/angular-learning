@@ -20,8 +20,14 @@ export class UserService {
       catchError(error => this.handleError(error))
     ); 
   } 
+
+  createUser(user: Partial<User>) {
+    return this.http.post<User>(this.url, user).pipe(
+      catchError(error => this.handleError(error))
+    )
+  }
   
-  updateUser() {
+  updateUser(id: number, user: Partial<User>) {
 
   } 
   
