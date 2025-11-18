@@ -1,5 +1,6 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserStore } from '../../services/user-store';
 
 @Component({
   selector: 'user-form',
@@ -9,10 +10,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 export class UserForm {
   private formBuilder = inject(FormBuilder);
+  private userStore = inject(UserStore);
   
   selectedUser = input<User>();
-  updateEvent = output<{ id: number; user: Partial<User>}>();
-  createEvent = output<Partial<User>>();
 
   // Without validator massages
   userProfile = this.formBuilder.group({
@@ -46,13 +46,13 @@ export class UserForm {
 
   onSubmit() {
     if(this.selectedUser()) {
-      this.updateEvent.emit({ 
-        id: this.selectedUser()!.id,
-        user: this.userProfile.value as Partial<User>
-      })
+      this.userStore.updateUser(
+        this.selectedUser()!.id,
+        this.userProfile.value as Partial<User>
+      );
     }
     else {
-      this.createEvent.emit(this.userProfile.value as Partial<User>)
+      this.userStore.createUser(this.userProfile.value as Partial<User>);
     }
     this.userProfile.reset();
   }

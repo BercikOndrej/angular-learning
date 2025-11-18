@@ -1,4 +1,5 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { UserStore } from '../../services/user-store';
 
 @Component({
   selector: 'user-card',
@@ -6,15 +7,15 @@ import { Component, input, output } from '@angular/core';
 })
 
 export class UserCard {
+  private userStore = inject(UserStore);
+  
   user = input.required<User>();
-  deleteUserEvent = output<number>();
-  selectUserEvent = output<number>();
 
   deleteUser() {
-    this.deleteUserEvent.emit(this.user()!.id);
+    this.userStore.deleteUser(this.user().id);
   }
 
   selectUser() {
-    this.selectUserEvent.emit(this.user()!.id);
+    this.userStore.selectUser(this.user().id);
   }
 }
