@@ -6,7 +6,6 @@ import { Component, input, output } from '@angular/core';
 })
 
 export class UserCard {
-
   user = input.required<User>();
   deleteUserEvent = output<number>();
   selectUserEvent = output<number>();

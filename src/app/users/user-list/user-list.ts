@@ -2,7 +2,7 @@ import { Component, input, output } from '@angular/core';
 import { UserCard } from '../user-card/user-card';
 
 @Component({
-  selector: 'user-list',
+  selector: 'user-list', 
   templateUrl: 'user-list.html',
   imports: [UserCard]
 })

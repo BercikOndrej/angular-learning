@@ -1,7 +1,6 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'user-form',
   templateUrl: './user-form.html',
@@ -44,7 +43,6 @@ export class UserForm {
       }
     })
   }
-
 
   onSubmit() {
     if(this.selectedUser()) {

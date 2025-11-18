@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, take, throwError } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService { 
   private readonly url = 'https://jsonplaceholder.typicode.com/users';
-  
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
   
   getAllUsers(): Observable<User[]> { 
     return this.http.get<User[]>(this.url).pipe(

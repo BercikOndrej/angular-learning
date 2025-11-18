@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { UserList } from '../user-list/user-list';
+import { Component, inject, linkedSignal, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { UserService } from '../../../services/user-service';
 import { UserForm } from '../user-form/user-form';
+import { UserList } from '../user-list/user-list';
 
 @Component({
   selector: 'user-page',
@@ -9,18 +10,18 @@ import { UserForm } from '../user-form/user-form';
   imports: [UserList, UserForm]
 })
 
-export class UserPage implements OnInit {
+export class UserPage {
   private userService = inject(UserService);
 
-  users = signal<User[]>([]);
+  loadedUsers = toSignal(this.userService.getAllUsers(), { initialValue: [] });
+  users = linkedSignal(() => this.loadedUsers());
+  
   selected = signal<User | undefined>(undefined);
 
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe({
-      next: () => {
-        this.users.update(list => list.filter(user => user.id !== id));
-      } ,
-      error: (error) => console.log(error)
+      next: () => this.users.update(list => list.filter(user => user.id !== id)),
+      error: (error) => console.error(error)
     })
   }
 
@@ -31,7 +32,7 @@ export class UserPage implements OnInit {
   createUser(user: Partial<User>) {
     this.userService.createUser(user).subscribe({
       next: (newUser) =>  this.users.update(users => [newUser, ...users]),
-      error: (error) => console.log(error)
+      error: (error) => console.error(error)
     })
   }
 
@@ -41,14 +42,7 @@ export class UserPage implements OnInit {
         this.users.update(users => users.map(u => u.id === id ? updatedUser : u));
         this.selected.set(undefined);
       },
-      error: (error) => console.log(error)
+      error: (error) => console.error(error)
     })
   }
-
-  ngOnInit() {
-    this.userService.getAllUsers().subscribe({
-      next: (users) => this.users.set(users),
-      error: (error) => console.log(error)
-    })
-   }
 }
