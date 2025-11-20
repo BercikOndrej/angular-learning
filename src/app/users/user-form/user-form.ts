@@ -1,5 +1,5 @@
 import { Component, effect, inject, input } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserStore } from '../../services/user-store';
 
 @Component({
@@ -55,5 +55,31 @@ export class UserForm {
       this.userStore.createUser(this.userProfile.value as Partial<User>);
     }
     this.userProfile.reset();
+  }
+
+  // Getters
+
+  get name() {
+    return this.userProfile.get('name')
+  }
+
+  get username() {
+    return this.userProfile.get('username')
+  }
+
+  get email() {
+    return this.userProfile.get('email')
+  }
+
+  get phone() {
+    return this.userProfile.get('phone')
+  }
+
+  get website() {
+    return this.userProfile.get('website')
+  }
+
+   get companyName() {
+    return this.userProfile.get('company')?.get('name');
   }
 }

@@ -3,12 +3,50 @@
   (ngSubmit)="onSubmit()"
   class="p-4 flex flex-col gap-2">
   <input type="text" placeholder="Name" formControlName="name">
+  @if (name?.dirty || name?.touched) {
+    @if (name?.hasError('required')) {
+      <p class="text-red-500">Name is required!</p>
+    }
+  }
+
   <input type="text" placeholder="Username" formControlName="username">
+  @if (username?.dirty || username?.touched) {
+    @if (username?.hasError('required')) {
+      <p class="text-red-500">Username is required!</p>
+    }
+  }
+
   <input type="email" placeholder="Email" formControlName="email">
+  @if (email?.dirty || email?.touched) {
+    @if (email?.hasError('required')) {
+      <p class="text-red-500">Email is required!</p>
+    }
+    @if (email?.hasError('email')) {
+      <p class="text-red-500">Invalid email address!</p>
+    }
+  }
+
   <input type="text" placeholder="Phone" formControlName="phone">
+  @if (phone?.dirty || phone?.touched) {
+    @if (phone?.hasError('required')) {
+      <p class="text-red-500">Phone is required!</p>
+    }
+  }
+
   <input type="text" placeholder="Website" formControlName="website">
+  @if (website?.dirty || website?.touched) {
+    @if (website?.hasError('required')) {
+      <p class="text-red-500">Website is required!</p>
+    }
+  }
+
   <div formGroupName="company" class="w-full">
     <input type="text" placeholder="Company name" formControlName="name" class="w-full">
+    @if (companyName?.dirty || companyName?.touched) {
+    @if (companyName?.hasError('required')) {
+      <p class="text-red-500">Company name is required!</p>
+    }
+  }
   </div>
   <button 
     type="submit"
