@@ -40,6 +40,8 @@ export class UserForm {
             name: user.company.name
           }
         });
+      } else {
+        this.userProfile.reset();
       }
     })
   }
